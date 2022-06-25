@@ -39,6 +39,7 @@ def bananas(s) -> set:
     result = set()
 
     str_arr = list(s)
+    print("hello")
     return result
 
 
