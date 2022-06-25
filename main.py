@@ -38,6 +38,7 @@ def zeros(n):
 def bananas(s) -> set:
     result = set()
 
+    print("hello123")
     str_arr = list(s)
     print("hello")
     return result
