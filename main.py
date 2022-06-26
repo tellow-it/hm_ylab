@@ -1,4 +1,5 @@
 import math
+from itertools import combinations
 
 
 def domain_name(url):
@@ -37,10 +38,15 @@ def zeros(n):
 
 def bananas(s) -> set:
     result = set()
-
-    print("hello123")
-    str_arr = list(s)
-    print("hello")
+    res = []
+    for c in combinations(range(len(s)), len(s) - 6):
+        x = list(s)
+        for i in c:
+            x[i] = '-'
+        x = ''.join(x)
+        if x.replace('-', '') == 'banana':
+            res.append(x)
+    result = set(res)
     return result
 
 
