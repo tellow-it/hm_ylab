@@ -1,5 +1,7 @@
 import math
-from itertools import combinations
+import time
+from itertools import combinations, combinations_with_replacement
+from math import prod
 
 
 def domain_name(url):
@@ -51,25 +53,20 @@ def bananas(s) -> set:
 
 
 def count_find_num(primesL, limit):
-    # your code here
-    product = math.prod(primesL)
-    numbers = []
-    for i in range(product, limit + 1, product):
-        num = i
-        if i % product == 0:
-            product_count = []
-            for pr in primesL:
-                k = 0
-                while i % pr == 0:
-                    k += 1
-                    i /= pr
-                product_count.append(k)
-                if i == 1:
-                    numbers.append(num)
-    if len(numbers) != 0:
-        return [len(numbers), max(numbers)]
-    else:
-        return []
+    max_range = 30
+    i = 0
+    result = []
+    count = []
+    item = []
+    while i <= max_range:
+        i += 1
+        for number in combinations_with_replacement(primesL, i):
+            if set(primesL).issubset(number):
+                if prod(number) <= limit:
+                    item.append(prod(number))
+                    count.append(number)
+                    result = [len(count), max(item)]
+    return result
 
 
 def test_for_task_1():
@@ -91,7 +88,7 @@ def test_for_task_3():
     assert zeros(30) == 7
 
 
-def test_fot_task_4():
+def test_for_task_4():
     assert bananas("banann") == set()
     assert bananas("banana") == {"banana"}
     assert bananas("bbananana") == {"b-an--ana", "-banana--", "-b--anana", "b-a--nana", "-banan--a",
@@ -128,6 +125,9 @@ if __name__ == '__main__':
     test_for_task_1()
     test_for_task_2()
     test_for_task_3()
+    test_for_task_4()
     test_for_task_5()
+
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
